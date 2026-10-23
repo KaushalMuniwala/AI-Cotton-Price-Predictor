@@ -85,4 +85,3 @@ AI-Cotton-Price-Predictor/
 ## 📜 License & Acknowledgments
 
 - **Data Source**: Agmarknet (Directorate of Marketing & Inspection, Ministry of Agriculture, Govt. of India).
-- Built with ❤️ for Gujarat's farming community.
