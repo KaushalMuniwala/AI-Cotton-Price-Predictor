@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Cotton Price Predictor | कपास मूल्य भविष्यवाणी</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- AI Assistant Voice Button -->
+    <div class="ai-voice">
+      <button id="voiceAssistant" class="voice-btn glow-effect">
+        <i class="fas fa-robot"></i>
+        <span class="pulse-dot"></span>
+        AI सहायक
+      </button>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-btn">
+      <button id="menuToggle" class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Header -->
+      <header class="header glass-effect">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <div class="logo-text">
+            <h1>कपास मूल्य भविष्यवाणी</h1>
+            <p class="tagline">
+              Smart Farming, Better Earnings - Gujarat Focus
+            </p>
+          </div>
+          <span class="beta-tag blink-soft">AI POWERED</span>
+        </div>
+        <div class="current-time" id="currentTime">
+          <i class="fas fa-clock"></i>
+          <span id="timeText"></span>
+        </div>
+      </header>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Left Panel - Input Controls -->
+        <div class="control-panel glass-effect slide-in-left">
+          <div class="panel-header">
+            <h3><i class="fas fa-sliders-h"></i> Prediction Controls</h3>
+            <div class="connection-status">
+              <span class="status-dot live-blink"></span>
+              Live
+            </div>
+          </div>
+
+          <!-- API Key Input Group (New: Before City Selection) -->
+          <div class="input-group">
+            <label for="apiKeyInput" class="input-label">
+              <i class="fas fa-key"></i>
+              Enter API Key (Optional)
+            </label>
+            <div class="api-key-wrapper">
+              <input
+                type="text"
+                id="apiKeyInput"
+                class="ai-select api-key-input"
+                placeholder="e.g., 579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b"
+              />
+
+              <br />
+              <button
+                id="saveApiKeyBtn"
+                class="api-key-submit-btn"
+                title="Save API Key"
+                style="
+                  background-color: #4caf50; /* Green color for the button */
+                  color: white; /* White text color */
+                  padding: 12px 35px; /* Padding for better button width */
+                  border-radius: 5px; /* Slightly rounded corners */
+                  border: none; /* No border */
+                  font-size: 16px; /* Standard font size */
+                  font-weight: bold; /* Bold font for emphasis */
+                  cursor: pointer; /* Pointer cursor on hover */
+                  transition: background-color 0.3s, transform 0.2s ease; /* Smooth transition effects */
+                  display: inline-flex; /* Ensure icon and text are aligned */
+                  align-items: center; /* Vertically align content */
+                  justify-content: center; /* Horizontally center content */
+                "
+              >
+                <i class="fas fa-save" style="margin-right: 8px"></i> Save API
+                Key
+              </button>
+            </div>
+            <small class="api-key-hint"
+              >Save your data.gov.in API key for unlimited fetches (defaults to
+              sample key).</small
+            >
+          </div>
+
+          <!-- City Selection with Enhanced Dropdown -->
+          <div class="input-group">
+            <label for="citySelect" class="input-label">
+              <i class="fas fa-map-marker-alt"></i>
+              Select City
+            </label>
+            <div class="custom-select">
+              <select id="citySelect" class="ai-select">
+                <option value="">Choose a city...</option>
+                <option value="ahmedabad" selected>Ahmedabad</option>
+                <option value="amreli">Amreli</option>
+                <option value="anand">Anand</option>
+                <option value="aravalli">Aravalli</option>
+                <option value="banaskanth">Banaskanth</option>
+                <option value="bharuch">Bharuch</option>
+                <option value="bhavnagar">Bhavnagar</option>
+                <option value="botad">Botad</option>
+                <option value="chhota udepur">Chhota Udaipur</option>
+                <option value="dahod">Dahod</option>
+                <option value="dang">Dang</option>
+                <option value="devbhumi dwarka">Devbhumi Dwarka</option>
+                <option value="gandhinagar">Gandhinagar</option>
+                <option value="gir somnath">Gir Somnath</option>
+                <option value="jamnagar">Jamnagar</option>
+                <option value="junagadh">Junagarh</option>
+                <option value="kachchh">Kachchh</option>
+                <option value="kheda">Kheda</option>
+                <option value="mahisagar">Mahisagar</option>
+                <option value="mehsana">Mehsana</option>
+                <option value="morbi">Morbi</option>
+                <option value="narmada">Narmada</option>
+                <option value="navsari">Navsari</option>
+                <option value="panchmahals">Panchmahals</option>
+                <option value="patan">Patan</option>
+                <option value="porbandar">Porbandar</option>
+                <option value="rajkot">Rajkot</option>
+                <option value="sabarkantha">Sabarkantha</option>
+                <option value="surat">Surat</option>
+                <option value="surendranagar">Surendranagar</option>
+                <option value="tapi">Tapi</option>
+                <option value="the dangs">The Dangs</option>
+                <option value="vadodara">Vadodara (Baroda)</option>
+                <option value="valsad">Valsad</option>
+              </select>
+              <div class="select-arrow">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Year Selection -->
+          <div class="input-group">
+            <label for="yearSelect" class="input-label">
+              <i class="fas fa-calendar-alt"></i>
+              Prediction Year
+            </label>
+            <div class="custom-select">
+              <select id="yearSelect" class="ai-select">
+                <option value="2024">2024</option>
+                <option value="2025" selected>2025</option>
+                <option value="2026">2026</option>
+              </select>
+              <div class="select-arrow">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weather Intelligence Section -->
+          <div class="weather-inputs">
+            <div class="section-header">
+              <i class="fas fa-cloud-sun-rain"></i>
+              <h4>Weather Intelligence</h4>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <label><i class="fas fa-cloud-rain"></i> Rainfall Impact</label>
+                <span class="slider-value blink-soft" id="rainfallValue"
+                  >Medium</span
+                >
+              </div>
+              <input
+                type="range"
+                id="rainfallSlider"
+                min="0"
+                max="100"
+                value="50"
+                class="ai-slider"
+              />
+              <div class="slider-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <label
+                  ><i class="fas fa-temperature-high"></i> Temperature
+                  Impact</label
+                >
+                <span class="slider-value blink-soft" id="tempValue"
+                  >Medium</span
+                >
+              </div>
+              <input
+                type="range"
+                id="tempSlider"
+                min="0"
+                max="100"
+                value="50"
+                class="ai-slider"
+              />
+              <div class="slider-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Predict Button -->
+          <button id="predictBtn" class="predict-button glow-hover">
+            <i class="fas fa-bolt"></i>
+            <span class="btn-text">Generate AI Prediction</span>
+            <div class="btn-shine"></div>
+          </button>
+
+          <!-- Real-time Data Status -->
+          <div class="real-time-data">
+            <div class="section-header">
+              <i class="fas fa-satellite-dish"></i>
+              <h4>Live Data Status</h4>
+            </div>
+            <div class="status-grid">
+              <div class="status-item pulse-glow">
+                <div class="status-info">
+                  <i class="fas fa-wheat-alt"></i>
+                  <span>Cotton Prices</span>
+                </div>
+                <span class="status-badge live-blink">
+                  <i class="fas fa-circle"></i>
+                  Live
+                </span>
+              </div>
+              <div class="status-item pulse-glow">
+                <div class="status-info">
+                  <i class="fas fa-temperature-high"></i>
+                  <span>Weather Data</span>
+                </div>
+                <span class="status-badge live-blink">
+                  <i class="fas fa-circle"></i>
+                  Live
+                </span>
+              </div>
+              <div class="status-item">
+                <div class="status-info">
+                  <i class="fas fa-brain"></i>
+                  <span>AI Models</span>
+                </div>
+                <span class="status-badge ready">
+                  <i class="fas fa-check"></i>
+                  Ready
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel - Results -->
+        <div class="results-panel">
+          <!-- Price Prediction Chart -->
+          <div class="chart-card glass-effect slide-in-right">
+            <div class="chart-header">
+              <div class="chart-title">
+                <i class="fas fa-chart-line"></i>
+                <h3>Monthly Price Prediction</h3>
+              </div>
+              <div class="chart-controls">
+                <button
+                  class="chart-btn active"
+                  data-type="line"
+                  title="Line Chart"
+                >
+                  <i class="fas fa-wave-square"></i>
+                </button>
+                <button class="chart-btn" data-type="bar" title="Bar Chart">
+                  <i class="fas fa-chart-bar"></i>
+                </button>
+                <button class="chart-btn" data-type="pie" title="Pie Chart">
+                  <i class="fas fa-chart-pie"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="priceChart"></canvas>
+            </div>
+            <div class="chart-footer">
+              <div class="chart-stats">
+                <div class="chart-stat">
+                  <span class="stat-label">Current Trend</span>
+                  <span class="stat-value positive"
+                    ><i class="fas fa-arrow-up"></i> Rising</span
+                  >
+                </div>
+                <div class="chart-stat">
+                  <span class="stat-label">AI Confidence</span>
+                  <span class="stat-value high"
+                    ><i class="fas fa-shield-alt"></i> 97%</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="stats-grid">
+            <div class="stat-card gradient-1 fade-in">
+              <div class="stat-icon">
+                <i class="fas fa-rupee-sign"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="avgPrice">₹6,500</div>
+                <div class="stat-label">Average Price</div>
+              </div>
+              <div class="stat-trend positive">
+                <i class="fas fa-arrow-up"></i>
+                10%
+              </div>
+            </div>
+
+            <div class="stat-card gradient-2 fade-in">
+              <div class="stat-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="bestMonth">October</div>
+                <div class="stat-label">Best Selling Month</div>
+              </div>
+              <div class="pulse-ring"></div>
+            </div>
+
+            <div class="stat-card gradient-3 fade-in">
+              <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="worstMonth">July</div>
+                <div class="stat-label">Lowest Price Month</div>
+              </div>
+            </div>
+
+            <div class="stat-card gradient-4 fade-in">
+              <div class="stat-icon">
+                <i class="fas fa-percentage"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="accuracy">97%</div>
+                <div class="stat-label">AI Accuracy</div>
+              </div>
+              <div class="accuracy-glow"></div>
+            </div>
+          </div>
+
+          <!-- Weather Impact Analysis -->
+          <div class="analysis-card glass-effect fade-in">
+            <div class="section-header">
+              <i class="fas fa-wind"></i>
+              <h3>Weather Impact Analysis</h3>
+            </div>
+            <div class="impact-grid">
+              <div class="impact-item">
+                <div class="impact-icon positive">
+                  <i class="fas fa-cloud-rain"></i>
+                </div>
+                <div class="impact-content">
+                  <div class="impact-label">Rainfall Effect</div>
+                  <div class="impact-bar">
+                    <div class="impact-fill positive" style="width: 60%">
+                      <div class="impact-shine"></div>
+                    </div>
+                  </div>
+                  <div class="impact-value positive">
+                    +10% Price Rise (Monsoon Boost)
+                  </div>
+                </div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-icon negative">
+                  <i class="fas fa-temperature-high"></i>
+                </div>
+                <div class="impact-content">
+                  <div class="impact-label">Temperature</div>
+                  <div class="impact-bar">
+                    <div class="impact-fill negative" style="width: 30%">
+                      <div class="impact-shine"></div>
+                    </div>
+                  </div>
+                  <div class="impact-value negative">
+                    -5% Price Drop (Heat Stress)
+                  </div>
+                </div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-icon positive">
+                  <i class="fas fa-tint"></i>
+                </div>
+                <div class="impact-content">
+                  <div class="impact-label">Humidity</div>
+                  <div class="impact-bar">
+                    <div class="impact-fill positive" style="width: 70%">
+                      <div class="impact-shine"></div>
+                    </div>
+                  </div>
+                  <div class="impact-value positive">
+                    +15% Quality (Gujarat Avg)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Recommendations -->
+          <div class="recommendation-card glass-effect fade-in">
+            <div class="section-header">
+              <i class="fas fa-robot"></i>
+              <h3>AI Farming Recommendations</h3>
+            </div>
+            <div class="recommendation-list">
+              <div class="recommendation-item slide-in-right">
+                <div class="recommendation-icon success">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="recommendation-text">
+                  <span class="rec-title">Best selling time</span>
+                  <span class="rec-desc"><strong>October 15-30</strong></span>
+                </div>
+              </div>
+              <div class="recommendation-item slide-in-right">
+                <div class="recommendation-icon info">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="recommendation-text">
+                  <span class="rec-title">Expected price</span>
+                  <span class="rec-desc"
+                    ><strong>₹7,200 per quintal</strong></span
+                  >
+                </div>
+              </div>
+              <div class="recommendation-item slide-in-right">
+                <div class="recommendation-icon warning">
+                  <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="recommendation-text">
+                  <span class="rec-title">Market demand</span>
+                  <span class="rec-desc"><strong>High in Gujarat</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-content glass-effect">
+        <div class="ai-loader">
+          <div class="loader-ring"></div>
+          <div class="loader-core"></div>
+        </div>
+        <h3>AI is Analyzing Market Data...</h3>
+        <p>Running STL-LSTM algorithms with real-time weather data</p>
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav" class="mobile-nav">
+      <div class="nav-content">
+        <button class="nav-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="nav-header">
+          <i class="fas fa-leaf"></i>
+          <span>Cotton Predictor</span>
+        </div>
+        <div class="nav-items">
+          <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i>
+            Dashboard
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            Analytics
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-history"></i>
+            History
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i>
+            Settings
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-question-circle"></i>
+            Help
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>

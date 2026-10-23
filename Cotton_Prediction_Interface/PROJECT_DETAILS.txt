@@ -1,0 +1,295 @@
+================================================================================
+          AI COTTON PRICE PREDICTOR (कपास मूल्य भविष्यवाणी)
+                     GUJARAT MANDI INTELLIGENCE SYSTEM
+================================================================================
+
+TABLE OF CONTENTS:
+------------------
+1. PURPOSE OF THE PROJECT
+2. PROGRAMMING LANGUAGES USED
+3. COMPLETE TECH STACK & LIBRARIES
+4. HOW TO USE THIS PROJECT (STEP-BY-STEP USER GUIDE)
+5. HOW TO RUN THE PROJECT (DEVELOPER / TECHNICAL GUIDE)
+6. MACHINE LEARNING & PREDICTION ARCHITECTURE
+7. DATASET & COVERAGE DETAILS
+8. REST API ENDPOINTS
+9. FILE & FOLDER STRUCTURE
+
+================================================================================
+1. PURPOSE OF THE PROJECT
+================================================================================
+Gujarat is the largest cotton-producing state in India, accounting for over 
+30% of the country's total cotton output. Cotton (Kapas) prices are subject to 
+intense market volatility caused by:
+  - Seasonal harvesting gluts (massive supply arrivals between October & January).
+  - Monsoon rainfall patterns and droughts.
+  - Temperature anomalies affecting boll development.
+  - Mandi-specific demand, international export trends, and domestic mill demand.
+
+THE CORE OBJECTIVES OF THIS APPLICATION:
+  1. FARMER EMPOWERMENT:
+     Enables farmers to plan their crop sales months in advance rather than 
+     selling at distressed prices during harvest peaks.
+  2. BEST/WORST SELLING MONTH IDENTIFICATION:
+     Highlights the most profitable months to release stored cotton and warns 
+     against selling during expected market troughs.
+  3. WEATHER SENSITIVITY MODELING:
+     Allows users to simulate the price impact of low, medium, or high rainfall 
+     and extreme temperature stress.
+  4. LIVE & HISTORICAL FUSION:
+     Combines 5 years of verified Agmarknet transaction records with live 
+     Data.gov.in market price feeds for enhanced forecast accuracy.
+
+================================================================================
+2. PROGRAMMING LANGUAGES USED
+================================================================================
+This project is built using a modern full-stack web and data architecture:
+
+  [1] PYTHON:
+      - Backend web server & REST API framework.
+      - Data cleaning, transformation, and statistical processing.
+      - Time-series Machine Learning models (ARIMA & Seasonal Decomposition).
+      - External API integration with Data.gov.in.
+
+  [2] JAVASCRIPT (ES6+):
+      - Dynamic frontend client logic and event handling.
+      - Chart.js interactive graph rendering and chart type toggling.
+      - Asynchronous API communication via Fetch API.
+      - Local storage caching for API keys and user preferences.
+      - Web Speech Synthesis API integration (voice assistant).
+
+  [3] HTML5:
+      - Semantic structure for the dashboard interface.
+      - Accessibility, responsive layouts, and SEO metadata.
+
+  [4] CSS3:
+      - Custom responsive design (modern glassmorphism UI).
+      - CSS Grid and Flexbox layouts.
+      - Smooth transitions, pulsing status badges, and dynamic animations.
+      - Mobile, tablet, and desktop adaptive styling.
+
+================================================================================
+3. COMPLETE TECH STACK & LIBRARIES
+================================================================================
+BACKEND & MACHINE LEARNING:
+  - Flask (v3.1+): Lightweight, high-performance web framework.
+  - Flask-CORS (v6.0+): Cross-Origin Resource Sharing middleware.
+  - Pandas (v3.1+): Data wrangling, date aggregation, and series processing.
+  - NumPy (v2.5+): High-speed numerical calculations and statistical arrays.
+  - Statsmodels (v0.15+):
+      * ARIMA (AutoRegressive Integrated Moving Average) modeling.
+      * Seasonal Decomposition of time-series (Trend + Seasonality extraction).
+  - Scikit-Learn (v1.9+): Feature scaling and data preprocessing utilities.
+  - Requests (v2.34+): HTTP client for live Agmarknet / Data.gov.in API integration.
+  - Python-Dotenv (v1.2+): Secure environment variable management (.env).
+  - Openpyxl & LXML: High-speed XML/HTML/Excel data parsers.
+
+FRONTEND:
+  - Chart.js (v4.x via CDN): Responsive canvas charts (line and bar modes).
+  - FontAwesome (v6.x via CDN): Iconography for agricultural and control elements.
+  - Web Speech API: Browser-native voice output in Hindi / English.
+
+================================================================================
+4. HOW TO USE THIS PROJECT (STEP-BY-STEP USER GUIDE)
+================================================================================
+When you open http://127.0.0.1:5000 in your web browser, you will see the 
+interactive dashboard. Follow these steps to use all features:
+
+STEP 1: SELECT YOUR GUJARAT DISTRICT
+  - In the left control panel under "Select City", click the dropdown.
+  - Select your district (e.g., Rajkot, Amreli, Ahmedabad, Surat, Gandhinagar, etc.).
+  - The dashboard automatically loads historical baseline data for that district.
+
+STEP 2: CHOOSE PREDICTION YEAR
+  - Select the year you want predictions for: 2024, 2025, or 2026.
+  - The AI model will calculate monthly forecasts across all 12 months (Jan–Dec).
+
+STEP 3: ADJUST WEATHER INTELLIGENCE SLIDERS
+  - RAINFALL IMPACT:
+      * Low (<33%): Simulates drought / poor monsoon (typically lowers yield, driving prices higher).
+      * Medium (33-66%): Normal monsoon conditions.
+      * High (>66%): Bumper harvest conditions.
+  - TEMPERATURE IMPACT:
+      * Simulates heat stress on flowering and boll formation.
+  - Notice the dynamic "Weather Intelligence Analysis" bars update in real time.
+
+STEP 4: GENERATE PREDICTIONS
+  - Click the green "Generate AI Prediction" button (or change district/year).
+  - The interactive Chart updates immediately with month-by-month cotton prices.
+
+STEP 5: REVIEW METRICS & RECOMMENDATIONS
+  - Key Statistics Cards:
+      * Average Price: Projected average price (Rs./Quintal).
+      * Best Selling Month: Green card showing the optimal month to sell for peak profit.
+      * Worst Selling Month: Red card showing when market arrivals will depress prices.
+      * Volatility: Percentage price swing expected over the year.
+  - Smart Selling Advice:
+      * Advisory notes highlighting seasonal peaks and storage recommendations.
+
+STEP 6: TOGGLE CHART MODES
+  - Above the chart, click "Line Chart" for smooth price curves or "Bar Chart" 
+    for comparison bars.
+  - Hover over any point on the chart to inspect the exact price in Rs./Quintal.
+
+STEP 7: ACTIVATE AI VOICE ASSISTANT (AI सहायक)
+  - Click the floating "AI सहायक" button on the top right.
+  - The browser will speak the summary of the best selling month, average price, 
+    and model accuracy aloud.
+
+STEP 8: OPTIONAL - USE LIVE DATA.GOV.IN API KEY
+  - Enter your official data.gov.in API key in the "Enter API Key" box and click "Save".
+  - If a key is present, the app queries live daily market rates from Agmarknet 
+    and blends live rates into the forward prediction curve.
+  - If no key is entered, the app seamlessly uses the local 5-year Agmarknet dataset.
+
+================================================================================
+5. HOW TO RUN THE PROJECT (DEVELOPER / TECHNICAL GUIDE)
+================================================================================
+PREREQUISITES:
+  - Python 3.11, 3.12, or 3.13 installed on the system.
+  - Any modern web browser (Chrome, Edge, Firefox, Brave, Safari).
+
+STARTING THE APPLICATION:
+  1. Open PowerShell or Command Prompt.
+  2. Navigate to the project folder:
+     cd d:\Kaushal\Projects\Project2\Cotton_Prediction_Interface
+
+  3. Activate the virtual environment:
+     ..\.venv\Scripts\Activate.ps1
+
+  4. (Optional - if setting up on a new PC) Install dependencies:
+     pip install -r requirements.txt
+
+  5. Start the Flask server:
+     python app.py
+
+  6. Open your web browser and navigate to:
+     http://127.0.0.1:5000
+
+STOPPING THE SERVER:
+  - Press CTRL + C in the terminal running the server.
+
+================================================================================
+6. MACHINE LEARNING & PREDICTION ARCHITECTURE
+================================================================================
+The application utilizes a multi-stage time-series forecasting architecture:
+
+1. DATA CLEANING & STANDARDIZATION:
+   - 41,606 raw records from Gujarat Mandis spanning 2020 to 2025 are cleaned.
+   - Prices (Min, Max, Modal) and dates are validated.
+   - District name aliases are mapped (e.g. 'Banaskanth' -> 'Banaskantha', 
+     'Junagarh' -> 'Junagadh', 'Vadodara(Baroda)' -> 'Vadodara').
+
+2. TIME-SERIES DECOMPOSITION:
+   - For each district, daily modal price series are interpolated.
+   - statsmodels.tsa.seasonal.seasonal_decompose extracts:
+       * Trend component (long-term drift and inflation).
+       * Seasonal component (365-day harvest cycles).
+       * Residual component (random market noise).
+
+3. ARIMA FORECASTING (AUTOREGRESSIVE INTEGRATED MOVING AVERAGE):
+   - An ARIMA(1, 1, 1) model trains on the deseasonalized trend series.
+   - Eliminates the high computational cost of 365-lag SARIMAX while preserving 
+     direction, velocity, and statistical continuity.
+   - Forecasts the baseline trend forward for the target year (up to 365+ days).
+
+4. SEASONAL RECOMBINATION:
+   - Annual day-of-year seasonal factors are added back onto the forecasted trend:
+       * Peak harvest premium (Oct–Dec): +Rs. 500 to +Rs. 700 / Quintal.
+       * Monsoon lulls (Jun–Aug): -Rs. 300 to -Rs. 400 / Quintal.
+
+5. WEATHER SENSITIVITY ADJUSTMENT:
+   - Dynamic elasticity multipliers adjust final forecasts based on user sliders:
+       Price_adjusted = Price_base * [1 + ((Rainfall-50)/50 * 0.05) - ((Temp-50)/50 * 0.04)]
+
+6. LIVE MARKET SMOOTHING (CIRCUIT-BREAKER ENABLED):
+   - When live Agmarknet API prices are received, an exponential decay adjustment 
+     aligns the front of the forecast curve with today's live price.
+   - A built-in circuit breaker prevents UI slowdowns if government servers timeout.
+
+================================================================================
+7. DATASET & COVERAGE DETAILS
+================================================================================
+PRIMARY DATASET:
+  - Source: Agmarknet (Directorate of Marketing & Inspection, Ministry of Agriculture, Govt. of India).
+  - Scope: Gujarat State Cotton (Kapas) transactions.
+  - Date Range: May 1, 2020 through May 31, 2025.
+  - Total Records: 41,606 daily transaction rows.
+  - File: datasets/Agmarknet_Price_Report.csv (Clean CSV format, ~3.06 MB).
+
+COVERED GUJARAT DISTRICTS (34 DISTRICTS):
+  Ahmedabad, Amreli, Anand, Aravalli, Banaskantha, Bharuch, Bhavnagar, 
+  Botad, Chhota Udepur, Dahod, Dang, Devbhoomi Dwarka, Gandhinagar, 
+  Gir Somnath, Jamnagar, Junagadh, Kachchh, Kheda, Mahisagar, Mehsana, 
+  Morbi, Narmada, Navsari, Panchmahal, Patan, Porbandar, Rajkot, 
+  Sabarkantha, Surat, Surendranagar, Tapi, The Dangs, Vadodara, Valsad.
+
+MAJOR MANDIS REPRESENTED:
+  Rajkot, Gondal, Amreli, Savarkundla, Halvad, Morbi, Viramgam, Deesa, 
+  Patan, Kadi, Botad, Jambusar, Chhota Udaipur, Bodeli, and many more.
+
+================================================================================
+8. REST API ENDPOINTS
+================================================================================
+The Flask backend provides clean JSON REST endpoints:
+
+1. GET /
+   - Serves the dashboard HTML interface.
+
+2. GET /api/districts
+   - Returns list of all 34 Gujarat districts, mandi names, base prices, 
+     and price volatility profiles.
+
+3. POST /api/predict
+   - Generates monthly predictions for a district and year.
+   - Request Body (JSON):
+       {
+         "district": "rajkot",
+         "year": 2025,
+         "rainfall": 50,
+         "temperature": 50,
+         "months": 12,
+         "api_key": "default"
+       }
+   - Response: 12-month array of prices, averagePrice, bestMonth, worstMonth, 
+     highestPrice, lowestPrice, volatility, district profile, and confidence.
+
+4. GET /api/historical/<district>
+   - Returns monthly historical modal, min, and max price trends from 2020 to 2025.
+
+5. POST /api/validate-key
+   - Validates user Data.gov.in API key.
+
+6. GET /api/status
+   - Returns backend health, model count, and system status.
+
+7. GET /api/config
+   - Returns server-side configuration and API key readiness.
+
+================================================================================
+9. FILE & FOLDER STRUCTURE
+================================================================================
+Cotton_Prediction_Interface/
+│
+├── app.py                      # Flask backend application with REST API endpoints
+├── cotton_predictor.py         # Time-series ML engine (ARIMA + Seasonal Decomposition)
+├── convert_dataset.py          # Dataset conversion utility script
+├── gujarat_cotton_scraper_v2.py # Agmarknet portal automated scraper utility
+├── readme.md                   # Markdown README for GitHub / repository
+├── requirements.txt            # Python package dependencies
+├── .env                        # Configuration file with Data.gov.in API key
+├── PROJECT_DETAILS.txt         # Comprehensive guide and reference document
+│
+├── datasets/                   # Cleaned Agmarknet datasets
+│   ├── Agmarknet_Price_Report.csv        # 41,606 cleaned Gujarat transaction rows (3.06 MB)
+│   └── 9ef84268-d588-465a-a308-a864a43d0070.csv # Official Data.gov.in schema sample
+│
+├── static/                     # Frontend client assets
+│   ├── script.js               # Interactive client logic, Chart.js, API caller
+│   └── style.css               # Modern glassmorphism UI styling
+│
+└── templates/                  # Frontend HTML templates
+    └── index.html              # Main dashboard interface
+================================================================================
+                      END OF PROJECT DOCUMENTATION
+================================================================================
